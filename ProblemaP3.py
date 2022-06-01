@@ -6,7 +6,6 @@ import sys
 
 # Función solución
 def decoder(data):
-    data = data[0:len(data)-1]
     appear, endIndex = [], 0
     # Se recorre de forma inversa la entrada y se agrega cada caracter nuevo encontrado
     for i in range(len(data)-1, -1, -1):
@@ -45,7 +44,7 @@ def main():
     numberCases = int(input())  # Número de casos de prueba
     solutions = []
     for c in range(numberCases):
-        data = input()
+        data = input().strip()
         # Se llama a la función solución con los datos anteriores
         sol = decoder(data)
         solutions.append(sol)

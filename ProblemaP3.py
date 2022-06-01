@@ -5,36 +5,38 @@
 import sys
 
 # Función solución
-def decoder(data):# 
-    data=data[0:len(data)-1]
-    appear=[]
-    endIndex=0
-    for i in range(len(data)-1, -1, -1):#Se recorre de forma inversa la entrada y se agrega cada char nuevo encontrado
+def decoder(data):
+    data = data[0:len(data)-1]
+    appear, endIndex = [], 0
+    # Se recorre de forma inversa la entrada y se agrega cada caracter nuevo encontrado
+    for i in range(len(data)-1, -1, -1):
         if not(data[i] in appear):
             appear.append(data[i])
-            endIndex=i
-    appear.reverse()#Los char encontrados se invierten dando el orden en el cual se eliminan los char
-    originalString=coder(data,appear,endIndex)#Se encuentra el string original cifrando usando el orden encontrado
-    if originalString=="NO EXISTE":
+            endIndex = i
+    # Los caracteres encontrados se invierten dando el orden en el cual se eliminan
+    appear.reverse()
+    # Se encuentra la cadena original cifrada usando el orden encontrado
+    originalString = coder(data, appear, endIndex)
+    if originalString == "NO EXISTE":
         return "NO EXISTE"
-    return originalString+' '+(''.join(appear))
+    return originalString + ' ' + (''.join(appear))
 
-def coder(data,orden,endIndex):#Funcion que cifra diferentes strings hasta encontrar cuyo cifrado concuerden con la entrada
-    solution=""
-    originalString=""
-    while solution != data:#Mientras que la solucion no concuerde con la entrada se sigue probando con strings mas largos
-        if endIndex==(len(data)):
-            originalString="NO EXISTE"
+
+# Función que cifra diferentes cadenas hasta encontrar una cuyo cifrado concuerde con la entrada
+def coder(data, orden, endIndex):
+    solution, originalString = "", ""
+    while solution != data:  # Mientras que la solución no concuerde con la entrada se sigue probando con strings más largos
+        if endIndex == (len(data)):
+            originalString = "NO EXISTE"
             break
 
-        solution=str(data[0:endIndex+1])
-        removeString=str(solution)
+        solution = data[0:endIndex+1]
+        removeString = solution
         for i in orden:
-            removeString=removeString.replace(str(i),'')
-            solution=solution+removeString
-        originalString=str(data[0:endIndex+1])
-        endIndex=endIndex+1
-
+            removeString = removeString.replace(i, '')
+            solution = solution+removeString
+        originalString = data[0:endIndex+1]
+        endIndex = endIndex+1
     return originalString
 
 
@@ -43,13 +45,12 @@ def main():
     numberCases = int(input())  # Número de casos de prueba
     solutions = []
     for c in range(numberCases):
-        data = str(input())
+        data = input()
         # Se llama a la función solución con los datos anteriores
         sol = decoder(data)
         solutions.append(sol)
-    # Output
     for i in solutions:
-        print(i)
+        print(i)  # Output
 
 
 main()
